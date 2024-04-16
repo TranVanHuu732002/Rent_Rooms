@@ -9,8 +9,8 @@ const { AiOutlinePlusCircle } = icons;
 
 function Header() {
   const navigate = useNavigate();
-  const goLogin = useCallback(() => {
-    navigate(path.LOGIN);
+  const goLogin = useCallback((flag) => {
+    navigate(path.LOGIN,{state: {flag}});
   }, []);
 
   return (
@@ -27,13 +27,13 @@ function Header() {
             text={"Đăng nhập"}
             textColor="text-white"
             bgColor="bg-[#3961fb]"
-            onClick={goLogin}
+            onClick={() => {goLogin(false)}}
           />
           <Button
             text={"Đăng ký"}
             textColor="text-white"
             bgColor="bg-[#3961fb]"
-            onClick={goLogin}
+            onClick={() => {goLogin(true)}}
           />
 
           <Button

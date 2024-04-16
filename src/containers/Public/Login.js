@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Button, InputForm } from "../../components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as actions from "../../store/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Login() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [isRegister, setIsRegister] = useState(location.state?.flag);
-  const [invalid,setInvalid] = useState([])
+  const [invalidFields, setInvalidFields] = useState([]);
   const [payload, setPayload] = useState({
     name: "",
     phone: "",
@@ -20,16 +22,73 @@ function Login() {
     setIsRegister(location.state?.flag);
   }, [location.state?.flag]);
 
+  useEffect(() => {
+    isLoggedIn && navigate("/");
+  },);
+
   const handleSubmit = async () => {
-    console.log(payload);
-    isRegister ? dispatch(actions.register(payload)) : dispatch(actions.login(payload));
-    // validate(payload)
+    let finalPayload = isRegister
+      ? payload
+      : {
+          phone: payload.phone,
+          password: payload.password,
+        };
+    let invalids = validate(finalPayload);
+    if (invalids === 0)
+      isRegister
+        ? dispatch(actions.register(payload))
+        : dispatch(actions.login(payload));
   };
 
   // Check validate
   const validate = (payload) => {
+    let invalids = 0;
+    let fields = Object.entries(payload);
+    fields.forEach((item) => {
+      if (item[1] === "") {
+        setInvalidFields((prev) => [
+          ...prev,
+          {
+            name: item[0],
+            message: "Bạn không được bỏ trổng trường này",
+          },
+        ]);
+        invalids++;
+      }
+    });
 
-  }
+    fields.forEach((item) => {
+      switch (item[0]) {
+        case "password":
+          if (item[1].length < 6) {
+            setInvalidFields((prev) => [
+              ...prev,
+              {
+                name: item[0],
+                message: "Mật khẩu phải có tối thiểu 6 ký tự",
+              },
+            ]);
+            invalids++;
+          }
+          break;
+        case "phone":
+          if (!+item[1]) {
+            setInvalidFields((prev) => [
+              ...prev,
+              {
+                name: item[0],
+                message: "Số điện thoại không hợp lệ",
+              },
+            ]);
+            invalids++;
+          }
+          break;
+        default:
+          break;
+      }
+    });
+    return invalids;
+  };
 
   return (
     <div className="bg-white w-[600px] mt-[12px] pt-[30px] pb-[40px] rounded-md shadow-sm justify-center">
@@ -43,6 +102,8 @@ function Login() {
             value={payload.name}
             type={"name"}
             setValue={setPayload}
+            invalidFields={invalidFields}
+            setInvalidFields={setInvalidFields}
           />
         )}
         <InputForm
@@ -50,12 +111,16 @@ function Login() {
           value={payload.phone}
           type="phone"
           setValue={setPayload}
+          invalidFields={invalidFields}
+          setInvalidFields={setInvalidFields}
         />
         <InputForm
           label={"MẬT KHẨU "}
           value={payload.password}
           type="password"
           setValue={setPayload}
+          invalidFields={invalidFields}
+          setInvalidFields={setInvalidFields}
         />
         <Button
           text={isRegister ? "Đăng Ký" : "Đăng Nhập"}
@@ -71,7 +136,14 @@ function Login() {
               Bạn đã có tài khoản?
               <span
                 className="ml-[4px] text-[blue] hover:text-[red] cursor-pointer"
-                onClick={() => setIsRegister(false)}
+                onClick={() => {
+                  setIsRegister(false);
+                  setPayload({
+                    name: "",
+                    phone: "",
+                    password: "",
+                  });
+                }}
               >
                 Đăng nhập ngay
               </span>
@@ -83,7 +155,14 @@ function Login() {
               </span>
               <span
                 className="text-[blue] hover:text-[red] cursor-pointer"
-                onClick={() => setIsRegister(true)}
+                onClick={() => {
+                  setIsRegister(true);
+                  setPayload({
+                    name: "",
+                    phone: "",
+                    password: "",
+                  });
+                }}
               >
                 Tạo tài khoản
               </span>

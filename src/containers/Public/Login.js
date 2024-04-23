@@ -3,11 +3,12 @@ import { Button, InputForm } from "../../components";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as actions from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 function Login() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const [isRegister, setIsRegister] = useState(location.state?.flag);
@@ -24,7 +25,11 @@ function Login() {
 
   useEffect(() => {
     isLoggedIn && navigate("/");
-  },);
+  });
+
+  useEffect(() => {
+    msg && Swal.fire("Oops !", msg, "error");
+  }, [msg, update]);
 
   const handleSubmit = async () => {
     let finalPayload = isRegister
@@ -100,7 +105,7 @@ function Login() {
           <InputForm
             label={"HỌ TÊN"}
             value={payload.name}
-            type={"name"}
+            keyPayload={"name"}
             setValue={setPayload}
             invalidFields={invalidFields}
             setInvalidFields={setInvalidFields}
@@ -109,7 +114,7 @@ function Login() {
         <InputForm
           label={"SỐ ĐIỆN THOẠI"}
           value={payload.phone}
-          type="phone"
+          keyPayload="phone"
           setValue={setPayload}
           invalidFields={invalidFields}
           setInvalidFields={setInvalidFields}
@@ -117,10 +122,11 @@ function Login() {
         <InputForm
           label={"MẬT KHẨU "}
           value={payload.password}
-          type="password"
+          keyPayload="password"
           setValue={setPayload}
           invalidFields={invalidFields}
           setInvalidFields={setInvalidFields}
+          type="password"
         />
         <Button
           text={isRegister ? "Đăng Ký" : "Đăng Nhập"}

@@ -7,11 +7,26 @@ export const path = {
   NHA_CHO_THUE: "nha-cho-thue",
 };
 
-export const formatVietnameseToString = (keyword) => {
-  return keyword
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .split(" ")
-    .join("-");
+export const text = {
+  HOME_TITLE: "Tìm kiếm chỗ thuê ưng ý",
+  HOME_DESCRIPTION:
+    "Kênh thông tin Phòng trọ số 1 Việt Nam - Website đăng tin cho thuê phòng trọ, nhà nguyên căn, căn hộ, ở ghép nhanh, hiệu quả với 100.000+ tin đăng và 2.500.000 lượt xem mỗi tháng.",
 };
+
+export const localtion = [
+  {
+    id: "hcm",
+    name: "Phòng trọ Hồ chí minh",
+    image: "https://phongtro123.com/images/location_hcm.jpg",
+  },
+  {
+    id: "hn",
+    name: "Phòng trọ Hà nội",
+    image: "https://phongtro123.com/images/location_hn.jpg",
+  },
+  {
+    id: "dn",
+    name: "Phòng trọ Đà nẵng",
+    image: "https://phongtro123.com/images/location_dn.jpg",
+  },
+];

@@ -19,7 +19,7 @@ function Header() {
   }, []);
 
   return (
-    <div className="w-1100">
+    <div className="w-3/4">
       <div className="w-full flex items-center justify-between ">
         <img
           src={logo}

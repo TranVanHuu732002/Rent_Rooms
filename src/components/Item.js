@@ -15,6 +15,13 @@ const Item = ({
   address,
 }) => {
   const [isHoverHeart, setIsHoverHeart] = useState(false);
+  const handleStar = (star) => {
+    let starts = [];
+    for (let i = 1; i < +star; i++)
+      starts.push(<GrStar className="star-item" size={18} color="yellow" />);
+    return starts;
+  };
+
   return (
     <div className="w-full flex border-t border-orange-500">
       <div className="w-2/5 flex flex-wrap gap-[2px] cursor-pointer relative my-[24px]">
@@ -49,11 +56,13 @@ const Item = ({
       <div className="w-3/5 mt-[8px] mb-[4px]">
         <div className="flex justify-between gap-4">
           <div className="text-red-600 font-medium">
-            <GrStar className="star-item" size={18} color="yellow" />
-            <GrStar className="star-item" size={18} color="yellow" />
-            <GrStar className="star-item" size={18} color="yellow" />
-            <GrStar className="star-item" size={18} color="yellow" />
-            <GrStar className="star-item" size={18} color="yellow" />
+            {
+              handleStar(+star).length > 0  && handleStar(+star).map((star,number) => {
+                return (
+                  <span key={number}>{star}</span>
+                )
+              })
+            }
             {title}
           </div>
 
@@ -62,9 +71,13 @@ const Item = ({
           </div>
         </div>
         <div className="two-lines flex my-2 gap-2 items-center justify-between">
-          <span className="flex-3 font-bold text-green-600 whitespace-nowrap overflow-hidden text-ellipsis">{attributes?.price}</span>
+          <span className="flex-3 font-bold text-green-600 whitespace-nowrap overflow-hidden text-ellipsis">
+            {attributes?.price}
+          </span>
           <span className="flex-1">{attributes?.acreage}</span>
-          <span className="flex-3 whitespace-nowrap overflow-hidden text-ellipsis">{`${address.split(',')[address.split(",").length -2]},${address.split(',')[address.split(",").length -1]}`}</span>
+          <span className="flex-3 whitespace-nowrap overflow-hidden text-ellipsis">{`${
+            address.split(",")[address.split(",").length - 2]
+          },${address.split(",")[address.split(",").length - 1]}`}</span>
         </div>
         <p className="my-2 text-gray-500 w-full h-[50px] text-ellipsis overflow-hidden ">
           {description}

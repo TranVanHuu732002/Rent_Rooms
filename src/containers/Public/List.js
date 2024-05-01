@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { Button, Item } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../../store/actions/post";
+import { getPosts, getPostsLimit } from "../../store/actions/post";
 
-const List = () => {
+const List = ({page}) => {
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.post);
+  const { posts} = useSelector((state) => state.post);
   useEffect(() => {
-    dispatch(getPosts());
-  }, []);
+    let offset = page? +page -1 : 1
+    dispatch(getPostsLimit(offset));
+  }, [page]);
+
   return (
     <div className="w-full bg-white shadow-md rounded-md px-4 ">
       <div className="flex items-center justify-between mt-5 px-1">
@@ -22,22 +24,21 @@ const List = () => {
       </div>
 
       <div className="items-center ">
-        {
-          posts?.length > 0 && posts.map(item => {
+        {posts?.length > 0 &&
+          posts.map((item) => {
             return (
-              <Item 
+              <Item
                 key={item?.id}
-                address= {item?.address}
-                attributes= {item?.attributes}
-                description= {item?.description}
-                images= {JSON.parse(item?.images?.image)}
-                star= {+item?.star}
+                address={item?.address}
+                attributes={item?.attributes}
+                description={item?.description}
+                images={JSON.parse(item?.images?.image)}
+                star={+item?.star}
                 title={item?.title}
                 user={item?.user}
-                />
-            )
-          })
-        }
+              />
+            );
+          })}
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ const actionTypes = {
   LOGOUT: "LOGOUT",
 
   GET_POSTS: "GET_POSTS",
+  GET_POSTS_LIMIT: "GET_POSTS_LIMIT",
+
 };
 
 export default actionTypes;

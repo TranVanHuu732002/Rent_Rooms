@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import logo from "../../assets/logowithoutbg.png";
 import { Button } from "../../components";
 import icons from "../../utils/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { path } from "../../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
@@ -11,15 +11,20 @@ const { AiOutlinePlusCircle } = icons;
 
 function Header() {
   const navigate = useNavigate();
+  const headeRef = useRef();
   const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  const [searchParams] = useSearchParams();
   const goLogin = useCallback((flag) => {
     navigate(path.LOGIN, { state: { flag } });
   }, []);
 
+  useEffect(() => {
+    headeRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [searchParams.get("page")]);
+
   return (
-    <div className="w-1100">
+    <div ref={headeRef} className="w-3/4">
       <div className="w-full flex items-center justify-between ">
         <img
           src={logo}

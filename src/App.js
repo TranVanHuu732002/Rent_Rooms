@@ -12,10 +12,11 @@ import Homepage from "./containers/Public/Homepage";
 
 function App() {
   return (
-    <div className="h-screen w-screen bg-primary">
+    <div className=" bg-primary">
       <Routes>
         <Route path={path.HOME} element={<Home />}>
           <Route path={"*"} element={<Homepage />} />
+          <Route path={path.HOME__PAGE} element={<Homepage />} />
           <Route path={path.LOGIN} element={<Login />} />
           <Route path={path.CHO_THUE_CAN_HO} element={<RentalApartment />} />
           <Route path={path.CHO_THUE_MAT_BANG} element={<RentalSpace />} />

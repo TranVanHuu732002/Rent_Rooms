@@ -12,13 +12,15 @@ export const apiGetPosts = () =>
       reject(error);
     }
   });
-// Phan trang
-  export const apiGetPostsLimit = (page) =>
+// Phan trang,lay theo gia,dien tich
+
+export const apiGetPostsLimit = ( query) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axiosConfig({
         method: "get",
-        url: `/api/v1/post/limit?page=${page}`,
+        url: `/api/v1/post/limit`,
+        params: query
       });
       resolve(response);
     } catch (error) {

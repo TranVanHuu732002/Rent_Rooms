@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import { apiGetPosts, apiGetPostsLimit } from "../../services/post";
+import { apiGetPosts, apiGetPostsLimit, apiGetPostsLimitPrice } from "../../services/post";
 
 export const getPosts = () => async (dispatch) => {
   try {
@@ -22,12 +22,13 @@ export const getPosts = () => async (dispatch) => {
     });
   }
 };
-// Phan trang
-export const getPostsLimit = (page) => async (dispatch) => {
+
+// Lay theo gia,dien tich
+export const getPostsLimit = (query) => async (dispatch) => {
   try {
-    const response = await apiGetPostsLimit(page);
+    const response = await apiGetPostsLimit(query);
     if (response?.data.err === 0) {
-      dispatch({
+      dispatch({  
         type: actionTypes.GET_POSTS_LIMIT,
         posts: response.data.response?.rows,
         count: response.data.response?.count

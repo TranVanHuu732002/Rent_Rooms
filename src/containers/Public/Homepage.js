@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { text } from "../../utils/constant";
-import { ItemSidebar, Province } from "../../components";
+import { ItemSidebar, Province, RelatedPost } from "../../components";
 import { List, Pagination } from "./index";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -40,6 +40,7 @@ const Homepage = () => {
             title={"Xem theo diện tích"}
             content={areas}
           />
+          <RelatedPost/>
         </div>
       </div>
     </div>

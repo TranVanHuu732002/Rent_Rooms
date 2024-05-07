@@ -13,7 +13,6 @@ export const apiGetPosts = () =>
     }
   });
 // Phan trang,lay theo gia,dien tich
-
 export const apiGetPostsLimit = ( query) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -21,6 +20,19 @@ export const apiGetPostsLimit = ( query) =>
         method: "get",
         url: `/api/v1/post/limit`,
         params: query
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+// Lay theo bai post moi nhat
+export const apiGetNewPosts = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "get",
+        url: `/api/v1/post/new-post`,
       });
       resolve(response);
     } catch (error) {

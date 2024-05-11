@@ -1,5 +1,7 @@
 import React, { memo, useState } from "react";
 import icons from "../utils/icons";
+import { Link } from "react-router-dom";
+import { formatVietnameseToString } from "../utils/Common/formatVietnameseToString";
 
 const indexs = [0, 1, 2, 3];
 
@@ -13,6 +15,7 @@ const Item = ({
   description,
   attributes,
   address,
+  id,
 }) => {
   const [isHoverHeart, setIsHoverHeart] = useState(false);
   const handleStar = (star) => {
@@ -24,7 +27,10 @@ const Item = ({
 
   return (
     <div className="w-full flex border-t border-orange-500">
-      <div className="w-2/5 flex flex-wrap gap-[2px] cursor-pointer relative my-[24px]">
+      <Link
+        to={`chi-tiet/${formatVietnameseToString(title)}/${id}`}
+        className="w-2/5 flex flex-wrap gap-[2px] cursor-pointer relative my-[24px]"
+      >
         {images.length > 0 &&
           images
             .filter((i, index) => indexs.some((i) => i === index))
@@ -52,19 +58,19 @@ const Item = ({
             <RiHeartLine size={26} />
           )}
         </span>
-      </div>
+      </Link>
       <div className="w-3/5 mt-[8px] mb-[4px]">
         <div className="flex justify-between gap-4">
-          <div className="text-red-600 font-medium">
-            {
-              handleStar(+star).length > 0  && handleStar(+star).map((star,number) => {
-                return (
-                  <span key={number}>{star}</span>
-                )
-              })
-            }
+          <Link
+            to={`chi-tiet/${formatVietnameseToString(title)}/${id}`}
+            className="text-red-600 font-medium"
+          >
+            {handleStar(+star).length > 0 &&
+              handleStar(+star).map((star, number) => {
+                return <span key={number}>{star}</span>;
+              })}
             {title}
-          </div>
+          </Link>
 
           <div className="w-[10%] flex justify-end">
             <BsBookmarkStarFill size={24} color="orange" />

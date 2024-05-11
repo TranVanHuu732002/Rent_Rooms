@@ -1,15 +1,27 @@
 import React, { useEffect } from "react";
 import { Button, Item } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts, getPostsLimit } from "../../store/actions/post";
+import {  getPostsLimit } from "../../store/actions/post";
+import { useSearchParams } from "react-router-dom";
 
-const List = ({page}) => {
+const List = ({ categoryCode }) => {
   const dispatch = useDispatch();
-  const { posts} = useSelector((state) => state.post);
+  const [searchParams] = useSearchParams();
+  const { posts } = useSelector((state) => state.post);
+
   useEffect(() => {
-    let offset = page? +page -1 : 1
-    dispatch(getPostsLimit(offset));
-  }, [page]);
+    let params = [];
+    for (let entry of searchParams.entries()) {
+      params.push(entry);
+    }
+    let searchParamsObject = {};
+    params?.map((i) => {
+      searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] };
+    });
+
+    if (categoryCode) searchParamsObject.categoryCode = categoryCode;
+    dispatch(getPostsLimit(searchParamsObject));
+  }, [searchParams, categoryCode]);
 
   return (
     <div className="w-full bg-white shadow-md rounded-md px-4 ">
@@ -36,6 +48,7 @@ const List = ({page}) => {
                 star={+item?.star}
                 title={item?.title}
                 user={item?.user}
+                id={item?.id}
               />
             );
           })}

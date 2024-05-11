@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import {
   createSearchParams,
+  useLocation,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
@@ -12,6 +13,7 @@ const active =
 
 const PageNumber = ({ text, currentPage, icon, setCurrentPage }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [paramsSearch] = useSearchParams();
 
   let entries = paramsSearch.entries();
@@ -34,7 +36,7 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage }) => {
     if (!(text === "...")) {
       setCurrentPage(+text);
       navigate({
-        pathname: "/",
+        pathname: location.pathname,
         search: createSearchParams(append(entries)).toString(),
       });
     }

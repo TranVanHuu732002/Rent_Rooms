@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Item } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import {  getPostsLimit } from "../../store/actions/post";
+import { getPostsLimit } from "../../store/actions/post";
 import { useSearchParams } from "react-router-dom";
 
 const List = ({ categoryCode }) => {
@@ -15,10 +15,14 @@ const List = ({ categoryCode }) => {
       params.push(entry);
     }
     let searchParamsObject = {};
-    params?.map((i) => {
-      searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] };
+    params?.forEach((i) => {
+      if (Object.keys(searchParamsObject)?.some((item) => item === i[0])) {
+        searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];
+      } else {
+        searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] };
+      }
     });
-
+    console.log(searchParamsObject)
     if (categoryCode) searchParamsObject.categoryCode = categoryCode;
     dispatch(getPostsLimit(searchParamsObject));
   }, [searchParams, categoryCode]);

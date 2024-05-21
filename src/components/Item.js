@@ -40,7 +40,7 @@ const Item = ({
                   key={index}
                   src={i}
                   alt="preview"
-                  className="w-[120px] h-[102px] object-cover "
+                  className="w-[45%] h-[102px] object-cover "
                 />
               );
             })}

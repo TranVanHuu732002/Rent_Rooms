@@ -1,20 +1,24 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import logo from "../../assets/logowithoutbg.png";
-import { Button } from "../../components";
+import { Button,User } from "../../components";
 import icons from "../../utils/icons";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { path } from "../../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
+import menuManage from "../../utils/menuManage";
 
-const { AiOutlinePlusCircle } = icons;
+const { AiOutlinePlusCircle, BiLogOutCircle, IoIosArrowDown } = icons;
 
 function Header() {
   const navigate = useNavigate();
   const headeRef = useRef();
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
+  const [isShowMenu, setIsShowMenu] = useState(false);
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
   const goLogin = useCallback((flag) => {
     navigate(path.LOGIN, { state: { flag } });
   }, []);
@@ -54,14 +58,42 @@ function Header() {
             </div>
           )}
           {isLoggedIn && (
-            <div className="flex items-center gap-2">
-              <span className="font-normal">Tên người dùng!!!</span>
+            <div className="flex items-center gap-2 relative">
+              <span><User/></span>
               <Button
-                text={"Đăng xuất"}
+              
+                text={"Quản lí tài khoản"}
+                IcAfter={IoIosArrowDown}
                 textColor="text-white"
-                bgColor="bg-red-700"
-                onClick={() => dispatch(actions.logout())}
+                bgColor="bg-blue-700"
+                onClick={() => setIsShowMenu((prev) => !prev)}
               />
+              {isShowMenu && (
+                <div className="absolute top-full right-0 bg-white min-w-200 shadow-md rounded-md flex flex-col p-4 ">
+                  {menuManage.map((item) => {
+                    return (
+                      <Link
+                        className="flex gap-1 items-center border-b border-gray-200 py-2 hover:text-orange-500 text-blue-500"
+                        key={item.id}
+                        to={item.path}
+                      >
+                        {item?.icon}
+                        {item.text}
+                      </Link>
+                    );
+                  })}
+                  <span
+                    className="flex gap-1 items-center cursor-pointer hover:text-orange-500 text-blue-500 py-2"
+                    onClick={() => {
+                      setIsShowMenu(false);
+                      dispatch(actions.logout());
+                    }}
+                  >
+                    <BiLogOutCircle size={20} />
+                    <p>Đăng xuất</p>
+                  </span>
+                </div>
+              )}
             </div>
           )}
 

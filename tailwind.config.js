@@ -16,6 +16,10 @@ module.exports = {
       maxWidth: {
         600: "600px",
       },
+      minWidth: {
+        200: "200px",
+        300: "300px",
+      },
       flex: {
         3: "3 3 0%",
       },

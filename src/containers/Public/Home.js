@@ -23,7 +23,7 @@ function Home() {
     dispatch(actions.getProvinces());
   }, []);
   return (
-    <div className="w-full flex flex-col items-center m-auto h-full border border-red-500">
+    <div className="w-full flex flex-col items-center m-auto h-full">
       <Header />
       <Navigation />
       {isLoggedIn && <Search />}

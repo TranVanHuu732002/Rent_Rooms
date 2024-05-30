@@ -5,19 +5,19 @@ const menuManage = [
   {
     id: 1,
     text: "Đăng tin cho thuê",
-    path: "/system/create-new",
+    path: "/he-thong/tao-moi-tin-dang",
     icon: <ImPencil2 size={16}/>
   },
   {
     id: 2,
     text: "Quản lí tin đăng",
-    path: "/system/manage-post",
+    path: "/he-thong/quan-li-bai-dang",
     icon: <MdOutlineLibraryBooks size={16}/>
   },
   {
     id: 3,
     text: "Thông tin tài khoản",
-    path: "/system/profile",
+    path: "/he-thong/thong-tin-ca-nhan",
     icon: <BiUserPin size={16}/>
   },
 ];

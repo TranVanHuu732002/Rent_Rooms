@@ -1,10 +1,35 @@
 import { Routes, Route } from "react-router-dom";
-import { DetailPost, Home, Login, Homepage, Rental, SearchDetail } from "./containers/Public";
+import {
+  DetailPost,
+  Home,
+  Login,
+  Homepage,
+  Rental,
+  SearchDetail,
+} from "./containers/Public";
+import { CreatePost, System } from "./containers/System";
 import { path } from "./utils/constant";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import * as actions from "./store/actions";
 
 function App() {
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setTimeout(() => {
+      isLoggedIn && dispatch(actions.getCurrent());
+    }, 1000);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    dispatch(actions.getPrices());
+    dispatch(actions.getAreas());
+    dispatch(actions.getProvinces());
+  }, []);
+  
   return (
-    <div className=" bg-primary">
+    <div className=" bg-primary overflow-hidden">
       <Routes>
         <Route path={path.HOME} element={<Home />}>
           <Route path={"*"} element={<Homepage />} />
@@ -20,6 +45,9 @@ function App() {
             element={<DetailPost />}
           />
           <Route path={"chi-tiet/*"} element={<DetailPost />} />
+        </Route>
+        <Route path={path.SYSTEM} element={<System />}>
+          <Route path={path.CREATE_POST} element={<CreatePost />} />
         </Route>
       </Routes>
     </div>

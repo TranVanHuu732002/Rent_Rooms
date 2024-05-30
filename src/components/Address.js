@@ -6,13 +6,13 @@ import {
   apiGetPublicWards,
 } from "../services/app";
 
-const Address = ({setPayload}) => {
+const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
-  const [province, setProvince] = useState('');
-  const [district, setDistrict] = useState('');
+  const [province, setProvince] = useState("");
+  const [district, setDistrict] = useState("");
   const [wards, setWards] = useState([]);
-  const [ward, setWard] = useState('');
+  const [ward, setWard] = useState("");
   const [reset, setReset] = useState(false);
   useEffect(() => {
     const fecthPublicProvince = async () => {
@@ -25,7 +25,7 @@ const Address = ({setPayload}) => {
   }, []);
 
   useEffect(() => {
-    setDistrict('');
+    setDistrict("");
     const fecthPublicDistrict = async () => {
       const response = await apiGetPublicDistricts(province);
       if (response.status === 200) {
@@ -42,7 +42,7 @@ const Address = ({setPayload}) => {
   }, [province]);
 
   useEffect(() => {
-    setWard('');
+    setWard("");
     const fecthPublicWard = async () => {
       const response = await apiGetPublicWards(district);
       if (response.status === 200) {
@@ -52,7 +52,7 @@ const Address = ({setPayload}) => {
 
     province && district && fecthPublicWard();
     !district ? setReset(true) : setReset(false);
-    
+
     !district && setWards([]);
   }, [district]);
 
@@ -66,13 +66,15 @@ const Address = ({setPayload}) => {
     ? provinces?.find((item) => item.province_id === province)?.province_name
     : "";
 
-    useEffect(() => {
-      setPayload(prev=> ({
-        ...prev,
-        address: `${[valueWard, valueDistrict, valueProvince].filter(Boolean).join(', ')}`,
-        province:valueProvince
-      }))
-    },[province,district,ward])
+  useEffect(() => {
+    setPayload((prev) => ({
+      ...prev,
+      address: `${[valueWard, valueDistrict, valueProvince]
+        .filter(Boolean)
+        .join(", ")}`,
+      province: valueProvince,
+    }));
+  }, [province, district, ward]);
 
   return (
     <div>
@@ -80,6 +82,8 @@ const Address = ({setPayload}) => {
       <div className="flex flex-col gap-4">
         <div className="flex gap-4">
           <Select
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
             type="province"
             value={province}
             setValue={setProvince}
@@ -87,6 +91,8 @@ const Address = ({setPayload}) => {
             label="Tỉnh/TP"
           />
           <Select
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
             reset={reset}
             type="district"
             value={district}
@@ -95,6 +101,8 @@ const Address = ({setPayload}) => {
             label="Quận/Huyện"
           />
           <Select
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
             reset={reset}
             type="ward"
             value={ward}
@@ -103,7 +111,12 @@ const Address = ({setPayload}) => {
             label="Phường/Xã"
           />
         </div>
-        <InputReadOnly label='Địa chỉ chính xác' value={`${[valueWard, valueDistrict, valueProvince].filter(Boolean).join(', ')}`}/>
+        <InputReadOnly
+          label="Địa chỉ chính xác"
+          value={`${[valueWard, valueDistrict, valueProvince]
+            .filter(Boolean)
+            .join(", ")}`}
+        />
       </div>
     </div>
   );

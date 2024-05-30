@@ -1,59 +1,57 @@
 import { getNumbersArea, getNumbersPrice } from "./getNumbers";
 
-export const getCodePrice = (totals) => {
-  let arr = [];
-  return totals.map((item) => {
+export const getCodePrice = (totals, min, max) => {
+  return totals?.map((item) => {
     let arrMinMax = getNumbersPrice(item.value);
-    if (arrMinMax.length === 1) arr.push(arrMinMax[0]);
-    let sortedArr = arr.sort();
-
     return {
       ...item,
-      min: sortedArr.indexOf(arrMinMax[0]) === 0 ? 0 : arrMinMax[0],
-      max:
-        sortedArr.indexOf(arrMinMax[0]) === 0
+      min:
+        arrMinMax.length === 2
           ? arrMinMax[0]
-          : sortedArr.indexOf(arrMinMax[0]) === 1
-          ? 99999
-          : arrMinMax[1],
+          : arrMinMax[0] === min
+          ? 0
+          : arrMinMax[0],
+      max:
+        arrMinMax.length === 2
+          ? arrMinMax[1]
+          : arrMinMax[0] === max
+          ? 999999
+          : arrMinMax[0],
     };
   });
 };
 
-export const getCodeArea = (totals) => {
-  let arr = [];
+export const getCodeArea = (totals, min, max) => {
   return totals.map((item) => {
     let arrMinMax = getNumbersArea(item.value);
-    if (arrMinMax.length === 1) arr.push(arrMinMax[0]);
-    let sortedArr = arr.sort();
-
     return {
       ...item,
-      min: sortedArr.indexOf(arrMinMax[0]) === 0 ? 0 : arrMinMax[0],
-      max:
-        sortedArr.indexOf(arrMinMax[0]) === 0
+      min:
+        arrMinMax.length === 2
           ? arrMinMax[0]
-          : sortedArr.indexOf(arrMinMax[0]) === 1
-          ? 99999
-          : arrMinMax[1],
+          : arrMinMax[0] === min
+          ? 0
+          : arrMinMax[0],
+      max:
+        arrMinMax.length === 2
+          ? arrMinMax[1]
+          : arrMinMax[0] === max
+          ? 999999
+          : arrMinMax[0],
     };
   });
 };
 
-export const getCodesPrice = (arrMinMax, prices) => {
-  const pricesWithMinMax = getCodePrice(prices);
+export const getCodesPrice = (entry, prices, min, max) => {
+  const pricesWithMinMax = getCodePrice(prices, min, max);
   return pricesWithMinMax.filter(
-    (item) =>
-      (item.min >= arrMinMax[0] && item.min <= arrMinMax[1]) ||
-      (item.max >= arrMinMax[0] && item.max <= arrMinMax[1])
+    (item) => item.min <= entry && item.max > entry
   );
 };
 
-export const getCodesArea = (arrMinMax, areas) => {
-  const areasWithMinMax = getCodeArea(areas);
+export const getCodesArea = (entry, areas, min, max) => {
+  const areasWithMinMax = getCodeArea(areas, min, max);
   return areasWithMinMax.filter(
-    (item) =>
-      (item.min >= arrMinMax[0] && item.min <= arrMinMax[1]) ||
-      (item.max >= arrMinMax[0] && item.max <= arrMinMax[1])
+    (item) => item.min <= entry && item.max > entry
   );
 };

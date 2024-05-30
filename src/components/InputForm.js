@@ -3,12 +3,12 @@ import React from "react";
 export const InputForm = ({ label, value, setValue, keyPayload , invalidFields ,setInvalidFields ,type}) => {
   return (
     <div>
-      <label htmlFor="phone" className="text-xs">
+      <label htmlFor={keyPayload} className="text-xs">
         {label}
       </label>
       <input
         type={type|| "text"}
-        id="phone"
+        id={keyPayload}
         className="outline-none bg-[#e8f0fe] p-2 w-full rounded-md "
         value={value}
         onChange={(e) =>

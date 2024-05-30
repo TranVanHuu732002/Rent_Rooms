@@ -21,9 +21,15 @@ function App() {
       isLoggedIn && dispatch(actions.getCurrent());
     }, 1000);
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    dispatch(actions.getPrices());
+    dispatch(actions.getAreas());
+    dispatch(actions.getProvinces());
+  }, []);
   
   return (
-    <div className=" bg-primary">
+    <div className=" bg-primary overflow-hidden">
       <Routes>
         <Route path={path.HOME} element={<Home />}>
           <Route path={"*"} element={<Homepage />} />

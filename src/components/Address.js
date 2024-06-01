@@ -5,8 +5,11 @@ import {
   apiGetPublicProvinces,
   apiGetPublicWards,
 } from "../services/app";
+import { useSelector } from "react-redux";
 
 const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
+  const { dataEdit } = useSelector((state) => state.post);
+
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [province, setProvince] = useState("");
@@ -14,6 +17,45 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
   const [wards, setWards] = useState([]);
   const [ward, setWard] = useState("");
   const [reset, setReset] = useState(false);
+
+  useEffect(() => {
+    if (dataEdit?.address) {
+      let addressArr = dataEdit?.address?.split(",");
+      let foundProvince =
+        provinces?.length > 0 &&
+        provinces?.find(
+          (item) =>
+            item.province_name === addressArr[addressArr.length - 1]?.trim()
+        );
+      setProvince(foundProvince ? foundProvince.province_id : "");
+    }
+  }, [provinces, dataEdit]);
+
+  useEffect(() => {
+    if (dataEdit?.address) {
+      let addressArr = dataEdit?.address?.split(",");
+      let foundDistrict =
+        districts?.length > 0 &&
+        districts?.find(
+          (item) =>
+            item.district_name === addressArr[addressArr.length - 2]?.trim()
+        );
+      setDistrict(foundDistrict ? foundDistrict.district_id : "");
+    }
+  }, [districts, dataEdit]);
+
+  useEffect(() => {
+    if (dataEdit?.address) {
+      let addressArr = dataEdit?.address?.split(",");
+      let foundWard =
+        wards?.length > 0 &&
+        wards?.find(
+          (item) => item.ward_name === addressArr[addressArr.length - 3]?.trim()
+        );
+      setWard(foundWard ? foundWard.ward_id : "");
+    }
+  }, [wards, dataEdit]);
+
   useEffect(() => {
     const fecthPublicProvince = async () => {
       const response = await apiGetPublicProvinces();

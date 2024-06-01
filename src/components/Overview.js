@@ -19,7 +19,8 @@ const targets = [
 const Overview = ({ payload, setPayload, invalidFields, setInvalidFields }) => {
   const { categories } = useSelector((state) => state.app);
   const { currentData } = useSelector((state) => state.user);
-
+  const { dataEdit } = useSelector((state) => state.post);
+   
   return (
     <div>
       <h2 className="font-bold mb-2">Thông tin mô tả</h2>
@@ -28,7 +29,7 @@ const Overview = ({ payload, setPayload, invalidFields, setInvalidFields }) => {
           <Select
             setInvalidFields={setInvalidFields}
             invalidFields={invalidFields}
-            value={payload.categoryCode}
+            value={payload?.categoryCode}
             setValue={setPayload}
             name="categoryCode"
             options={categories}

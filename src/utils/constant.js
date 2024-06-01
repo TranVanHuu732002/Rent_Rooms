@@ -10,7 +10,9 @@ export const path = {
   DETAIL_POST__TITLE__IDPOST : 'chi-tiet/:title/:postId',
 // admin
   SYSTEM: '/he-thong/*',
-  CREATE_POST: 'tao-moi-tin-dang'
+  CREATE_POST: 'tao-moi-tin-dang',
+  MANAGE_POST: 'quan-li-bai-dang'
+
 };
 
 export const text = {

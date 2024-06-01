@@ -17,6 +17,7 @@ const InputFormV2 = ({
         <input
           type="text"
           id="title"
+          value={value}
           onChange={(e) =>
             setValue((prev) => ({
               ...prev,

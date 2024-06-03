@@ -6,6 +6,7 @@ import {
   Homepage,
   Rental,
   SearchDetail,
+  Contact
 } from "./containers/Public";
 import {
   CreatePost,
@@ -45,6 +46,7 @@ function App() {
           <Route path={path.CHO_THUE_PHONG_TRO} element={<Rental />} />
           <Route path={path.NHA_CHO_THUE} element={<Rental />} />
           <Route path={path.SEARCH} element={<SearchDetail />} />
+          <Route path={path.CONTACT} element={<Contact />} />
           <Route
             path={path.DETAIL_POST__TITLE__IDPOST}
             element={<DetailPost />}

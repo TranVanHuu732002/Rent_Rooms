@@ -8,6 +8,7 @@ export const path = {
   NHA_CHO_THUE: "nha-cho-thue",
   SEARCH: "tim-kiem",
   DETAIL_POST__TITLE__IDPOST : 'chi-tiet/:title/:postId',
+  CONTACT:"lien-he",
 // admin
   SYSTEM: '/he-thong/*',
   CREATE_POST: 'tao-moi-tin-dang',

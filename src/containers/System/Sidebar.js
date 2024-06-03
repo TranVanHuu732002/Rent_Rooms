@@ -1,10 +1,11 @@
 import React from "react";
-import annonAvatar from "../../assets/anonavatar.png";
+import anonAvatar from "../../assets/anonavatar.png";
 import { useDispatch, useSelector } from "react-redux";
 import menuSidebar from "../../utils/menuSidebar";
 import { NavLink } from "react-router-dom";
 import { BiLogOutCircle } from "react-icons/bi";
 import * as actions from "../../store/actions";
+import { blobToBase64 } from "../../utils/Common/toBase64";
 
 const activeStyle =
   "hover:bg-gray-200 flex rounded-md items-center gap-2 py-2 mb-1 font-bold bg-gray-200";
@@ -20,7 +21,7 @@ const Sidebar = () => {
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <img
-            src={currentData?.img || annonAvatar}
+            src={blobToBase64(currentData?.avatar) || anonAvatar}
             alt="avatar"
             className="h-12 w-12 object-cover rounded-full border-2 border-white"
           />

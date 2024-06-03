@@ -17,7 +17,7 @@ const menuManage = [
   {
     id: 3,
     text: "Thông tin tài khoản",
-    path: "/he-thong/thong-tin-ca-nhan",
+    path: "/he-thong/sua-thong-tin-ca-nhan",
     icon: <BiUserPin size={16}/>
   },
 ];

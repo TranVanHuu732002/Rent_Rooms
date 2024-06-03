@@ -6,8 +6,14 @@ import {
   Homepage,
   Rental,
   SearchDetail,
+  Contact
 } from "./containers/Public";
-import { CreatePost, System } from "./containers/System";
+import {
+  CreatePost,
+  EditAccount,
+  ManagePost,
+  System,
+} from "./containers/System";
 import { path } from "./utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -27,7 +33,7 @@ function App() {
     dispatch(actions.getAreas());
     dispatch(actions.getProvinces());
   }, []);
-  
+
   return (
     <div className=" bg-primary overflow-hidden">
       <Routes>
@@ -40,6 +46,7 @@ function App() {
           <Route path={path.CHO_THUE_PHONG_TRO} element={<Rental />} />
           <Route path={path.NHA_CHO_THUE} element={<Rental />} />
           <Route path={path.SEARCH} element={<SearchDetail />} />
+          <Route path={path.CONTACT} element={<Contact />} />
           <Route
             path={path.DETAIL_POST__TITLE__IDPOST}
             element={<DetailPost />}
@@ -48,6 +55,8 @@ function App() {
         </Route>
         <Route path={path.SYSTEM} element={<System />}>
           <Route path={path.CREATE_POST} element={<CreatePost />} />
+          <Route path={path.MANAGE_POST} element={<ManagePost />} />
+          <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />
         </Route>
       </Routes>
     </div>

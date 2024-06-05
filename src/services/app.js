@@ -44,7 +44,7 @@ export const apiGetPublicProvinces = () =>
     try {
       const response = await axiosDefault({
         method: "get",
-        url: "https://vapi.vnappmob.com/api/province",
+        url: "https://vietnamese-administration.vercel.app/city",
       });
       resolve(response);
     } catch (error) {
@@ -56,7 +56,7 @@ export const apiGetPublicDistricts = (provinceId) =>
     try {
       const response = await axiosDefault({
         method: "get",
-        url: `https://vapi.vnappmob.com/api/province/district/${provinceId}`,
+        url: `https://vietnamese-administration.vercel.app/district/?cityId=${provinceId}`,
       });
       resolve(response);
     } catch (error) {
@@ -69,7 +69,7 @@ export const apiGetPublicWards = (districtId) =>
     try {
       const response = await axiosDefault({
         method: "get",
-        url: `https://vapi.vnappmob.com/api/province/ward/${districtId}`,
+        url: `https://vietnamese-administration.vercel.app/ward/?districtId=${districtId}`,
       });
       resolve(response);
     } catch (error) {

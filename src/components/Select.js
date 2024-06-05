@@ -42,29 +42,29 @@ const Select = ({
             <option
               key={
                 type === "province"
-                  ? item?.province_id
+                  ? item?.cityId
                   : type === "district"
-                  ? item?.district_id
+                  ? item?.districtId
                   : type === "ward"
-                  ? item?.ward_id
+                  ? item?.wardId
                   : item?.code
               }
               value={
                 type === "province"
-                  ? item?.province_id
+                  ? item?.cityId
                   : type === "district"
-                  ? item?.district_id
+                  ? item?.districtId
                   : type === "ward"
-                  ? item?.ward_id
+                  ? item?.wardId
                   : item?.code
               }
             >
               {type === "province"
-                ? item?.province_name
+                ? item?.name
                 : type === "district"
-                ? item?.district_name
+                ? item?.name
                 : type === "ward"
-                ? item?.ward_name
+                ? item?.name
                 : item?.value}
             </option>
           );

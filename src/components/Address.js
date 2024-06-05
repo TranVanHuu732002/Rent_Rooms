@@ -25,9 +25,9 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
         provinces?.length > 0 &&
         provinces?.find(
           (item) =>
-            item.province_name === addressArr[addressArr.length - 1]?.trim()
+            item.name === addressArr[addressArr.length - 1]?.trim()
         );
-      setProvince(foundProvince ? foundProvince.province_id : "");
+      setProvince(foundProvince ? foundProvince.cityId : "");
     }
   }, [provinces, dataEdit]);
 
@@ -38,9 +38,9 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
         districts?.length > 0 &&
         districts?.find(
           (item) =>
-            item.district_name === addressArr[addressArr.length - 2]?.trim()
+            item.name === addressArr[addressArr.length - 2]?.trim()
         );
-      setDistrict(foundDistrict ? foundDistrict.district_id : "");
+      setDistrict(foundDistrict ? foundDistrict.districtId : "");
     }
   }, [districts, dataEdit]);
 
@@ -50,9 +50,9 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
       let foundWard =
         wards?.length > 0 &&
         wards?.find(
-          (item) => item.ward_name === addressArr[addressArr.length - 3]?.trim()
+          (item) => item.name === addressArr[addressArr.length - 3]?.trim()
         );
-      setWard(foundWard ? foundWard.ward_id : "");
+      setWard(foundWard ? foundWard.wardId : "");
     }
   }, [wards, dataEdit]);
 
@@ -60,7 +60,7 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
     const fecthPublicProvince = async () => {
       const response = await apiGetPublicProvinces();
       if (response.status === 200) {
-        setProvinces(response.data.results);
+        setProvinces(response.data);
       }
     };
     fecthPublicProvince();
@@ -71,7 +71,7 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
     const fecthPublicDistrict = async () => {
       const response = await apiGetPublicDistricts(province);
       if (response.status === 200) {
-        setDistricts(response.data.results);
+        setDistricts(response.data);
       }
     };
 
@@ -88,7 +88,7 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
     const fecthPublicWard = async () => {
       const response = await apiGetPublicWards(district);
       if (response.status === 200) {
-        setWards(response.data.results);
+        setWards(response.data);
       }
     };
 
@@ -99,13 +99,13 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
   }, [district]);
 
   const valueWard = ward
-    ? wards?.find((item) => item.ward_id === ward)?.ward_name
+    ? wards?.find((item) => item.wardId === ward)?.name
     : "";
   const valueDistrict = district
-    ? districts?.find((item) => item.district_id === district)?.district_name
+    ? districts?.find((item) => item.districtId === district)?.name
     : "";
   const valueProvince = province
-    ? provinces?.find((item) => item.province_id === province)?.province_name
+    ? provinces?.find((item) => item.cityId === province)?.name
     : "";
 
   useEffect(() => {

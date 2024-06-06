@@ -9,6 +9,7 @@ export const path = {
   SEARCH: "tim-kiem",
   DETAIL_POST__TITLE__IDPOST : 'chi-tiet/:title/:postId',
   CONTACT:"lien-he",
+  DETAIL:'/chi-tiet/',
 // admin
   SYSTEM: '/he-thong/*',
   CREATE_POST: 'tao-moi-tin-dang',

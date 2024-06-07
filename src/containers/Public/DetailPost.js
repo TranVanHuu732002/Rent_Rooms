@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getPostsLimit } from "../../store/actions/post";
-import { Slider } from "../../components";
+import { Map, Slider } from "../../components";
 import icons from "../../utils/icons";
 
 const {
@@ -21,6 +21,14 @@ const DetailPost = () => {
   useEffect(() => {
     postId && dispatch(getPostsLimit({ id: postId }));
   }, [postId]);
+
+  const extractAddress = (fullAddress) => {
+    const prefix = "Địa chỉ:";
+    if (fullAddress?.startsWith(prefix)) {
+      return fullAddress?.slice(prefix.length).trim();
+    }
+    return fullAddress?.trim();
+  };
   return (
     <div className="w-full flex gap-4 mt-4">
       <div className="w-[70%]">
@@ -76,61 +84,66 @@ const DetailPost = () => {
           </div>
           <div className="mt-8">
             <h3 className="font-semibold text-xl my-4">Đặc điểm tin đăng</h3>
-            <table class="min-w-[60%] my-2 text-sm text-left">
+            <table className="min-w-[60%] my-2 text-sm text-left">
               <tbody className="w-full">
-                <tr class="w-full border-b">
-                  <td class="p-2 border">Mã tin</td>
-                  <td class="p-2 border">{posts[0]?.overviews?.code}</td>
+                <tr className="w-full border-b">
+                  <td className="p-2 border">Mã tin</td>
+                  <td className="p-2 border">{posts[0]?.overviews?.code}</td>
                 </tr>
-                <tr class="bg-gray-200 w-full border-b">
-                  <td class="p-2 border">Khu vực</td>
-                  <td class="p-2 border">{posts[0]?.overviews?.area}</td>
+                <tr className="bg-gray-200 w-full border-b">
+                  <td className="p-2 border">Khu vực</td>
+                  <td className="p-2 border">{posts[0]?.overviews?.area}</td>
                 </tr>
-                <tr class="w-full border-b">
-                  <td class="p-2 border">Loại tin rao</td>
-                  <td class="p-2 border">{posts[0]?.overviews?.type}</td>
+                <tr className="w-full border-b">
+                  <td className="p-2 border">Loại tin rao</td>
+                  <td className="p-2 border">{posts[0]?.overviews?.type}</td>
                 </tr>
-                <tr class="bg-gray-200 w-full border-b">
-                  <td class="p-2 border">Đối tượng thuê</td>
-                  <td class="p-2 border">{posts[0]?.overviews?.target}</td>
+                <tr className="bg-gray-200 w-full border-b">
+                  <td className="p-2 border">Đối tượng thuê</td>
+                  <td className="p-2 border">{posts[0]?.overviews?.target}</td>
                 </tr>
-                <tr class="w-full border-b">
-                  <td class="p-2 border">Gói tin</td>
-                  <td class="p-2 border">{posts[0]?.overviews?.bouns}</td>
+                <tr className="w-full border-b">
+                  <td className="p-2 border">Gói tin</td>
+                  <td className="p-2 border">{posts[0]?.overviews?.bouns}</td>
                 </tr>
-                <tr class="bg-gray-200 w-full border-b">
-                  <td class="p-2 border">Ngày đăng</td>
-                  <td class="p-2 border">{posts[0]?.overviews?.created}</td>
+                <tr className="bg-gray-200 w-full border-b">
+                  <td className="p-2 border">Ngày đăng</td>
+                  <td className="p-2 border">{posts[0]?.overviews?.created}</td>
                 </tr>
-                <tr class="w-full border-b">
-                  <td class="p-2 border">Ngày hết hạn</td>
-                  <td class="p-2 border">{posts[0]?.overviews?.expired}</td>
+                <tr className="w-full border-b">
+                  <td className="p-2 border">Ngày hết hạn</td>
+                  <td className="p-2 border">{posts[0]?.overviews?.expired}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div className="mt-8">
             <h3 className="font-semibold text-xl my-4">Thông tin liên hệ</h3>
-            <table class="min-w-[60%] my-2 text-sm text-left">
+            <table className="min-w-[60%] my-2 text-sm text-left">
               <tbody className="w-full">
-                <tr class="w-full border-b">
-                  <td class="w-[33%] p-2 border">Liên hệ </td>
-                  <td class="p-2 border">{posts[0]?.user?.name}</td>
+                <tr className="w-full border-b">
+                  <td className="w-[33%] p-2 border">Liên hệ </td>
+                  <td className="p-2 border">{posts[0]?.user?.name}</td>
                 </tr>
-                <tr class="bg-gray-200 w-full border-b">
-                  <td class="p-2 border">Điện thoại</td>
-                  <td class="p-2 border">{posts[0]?.user?.phone}</td>
+                <tr className="bg-gray-200 w-full border-b">
+                  <td className="p-2 border">Điện thoại</td>
+                  <td className="p-2 border">{posts[0]?.user?.phone}</td>
                 </tr>
-                <tr class="w-full border-b">
-                  <td class="p-2 border">Zalo</td>
-                  <td class="p-2 border">{posts[0]?.user?.zalo}</td>
+                <tr className="w-full border-b">
+                  <td className="p-2 border">Zalo</td>
+                  <td className="p-2 border">{posts[0]?.user?.zalo}</td>
                 </tr>
               </tbody>
             </table>
           </div>
+          <div className="mt-8">
+            <h3 className="font-semibold text-xl my-4">Bản đồ</h3>
+            <span>{posts[0]?.address}</span>
+            <Map address={extractAddress(posts[0]?.address)||''} zoom={12} />
+          </div>
         </div>
       </div>
-      <div className="w-[30%]">SideBar</div>
+      <div className="w-[30%]">SideBar1</div>
     </div>
   );
 };

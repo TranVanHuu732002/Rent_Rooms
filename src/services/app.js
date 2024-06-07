@@ -76,3 +76,18 @@ export const apiGetPublicWards = (districtId) =>
       reject(error);
     }
   });
+
+// Api Maps
+export const apiGetLongtitudeAndLatitudeFromAddress = (address) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosDefault({
+        method: "get",
+        // url: `https://api.geoapify.com/v1/geocode/search?text=${address}&apiKey=${process.env.REACT_APP_GEOAPIFY}`,
+        url: `https://api.opencagedata.com/geocode/v1/json?q=${address}&key=${process.env.REACT_APP_OPENCAGEDATA}`,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });

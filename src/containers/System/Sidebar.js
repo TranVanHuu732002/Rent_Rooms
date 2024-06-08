@@ -17,7 +17,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="w-[256px] min-h-screen p-4">
+    <div className="w-[306px] min-h-screen p-4">
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <img

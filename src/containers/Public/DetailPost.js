@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getPostsLimit } from "../../store/actions/post";
-import { Map, Slider } from "../../components";
+import { BoxInfo, Map, RelatedPost, Slider } from "../../components";
 import icons from "../../utils/icons";
 
 const {
@@ -139,11 +139,15 @@ const DetailPost = () => {
           <div className="mt-8">
             <h3 className="font-semibold text-xl my-4">Bản đồ</h3>
             <span>{posts[0]?.address}</span>
-            <Map address={extractAddress(posts[0]?.address)||''} zoom={12} />
+            {/* <Map address={extractAddress(posts[0]?.address)||''} zoom={12} /> */}
           </div>
         </div>
       </div>
-      <div className="w-[30%]">SideBar1</div>
+      <div className="w-[30%] flex flex-col gap-4">
+        <BoxInfo userData={posts[0]?.user} />
+        <RelatedPost />
+        <RelatedPost newPost />
+      </div>
     </div>
   );
 };

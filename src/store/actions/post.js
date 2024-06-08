@@ -98,6 +98,34 @@ export const getPostsLimitAdmin = (query) => async (dispatch) => {
     });
   }
 };
+
+// Get post with star
+export const getOutStandingPosts = () => async (dispatch) => {
+  try {
+    const response = await apiGetPostsLimit({
+      limitPost: 5,
+      order: ["star", "DESC"],
+    });
+    if (response?.data.err === 0) {
+      dispatch({
+        type: actionTypes.GET_OUTSTANDING,
+        outStandingPosts: response.data.response?.rows,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_OUTSTANDING,
+        msg: response.data.msg,
+        outStandingPosts: null,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_OUTSTANDING,
+      outStandingPosts: null,
+    });
+  }
+};
+
 export const editData = (dataEdit) => ({
   type: actionTypes.EDIT_DATA,
   dataEdit,

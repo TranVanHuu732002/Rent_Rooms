@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { formatVietnameseToString } from "../../utils/Common/formatVietnameseToString";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
+import { path } from "../../utils/constant";
 
 const notActive =
   "hover:bg-secondary2 px-4 h-full flex items-center bg-secondary1";
@@ -10,7 +11,6 @@ const active =
   "hover:bg-secondary2 px-4 h-full flex items-center bg-secondary2";
 
 export const Navigation = ({ isAdmin }) => {
-  // const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.app);
 
@@ -47,6 +47,12 @@ export const Navigation = ({ isAdmin }) => {
               </div>
             );
           })}
+        <NavLink
+          to={path.CONTACT}
+          className={({ isActive }) => (isActive ? active : notActive)}
+        >
+          Liên hệ 
+        </NavLink>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { memo, useState } from "react";
 import icons from "../utils/icons";
 import { Link } from "react-router-dom";
 import { formatVietnameseToString } from "../utils/Common/formatVietnameseToString";
+import { path } from "../utils/constant";
 
 const indexs = [0, 1, 2, 3];
 
@@ -28,7 +29,9 @@ const Item = ({
   return (
     <div className="w-full flex border-t border-orange-500">
       <Link
-        to={`chi-tiet/${formatVietnameseToString(title)}/${id}`}
+        to={`${path.DETAIL}${formatVietnameseToString(
+          title?.replaceAll("/", "")
+        )}/${id}`}
         className="w-2/5 flex flex-wrap gap-[2px] cursor-pointer relative my-[24px]"
       >
         {images.length > 0 &&
@@ -62,7 +65,9 @@ const Item = ({
       <div className="w-3/5 mt-[8px] mb-[4px]">
         <div className="flex justify-between gap-4">
           <Link
-            to={`chi-tiet/${formatVietnameseToString(title)}/${id}`}
+            to={`${path.DETAIL}${formatVietnameseToString(
+              title?.replaceAll("/", "")
+            )}/${id}`}
             className="text-red-600 font-medium"
           >
             {handleStar(+star).length > 0 &&

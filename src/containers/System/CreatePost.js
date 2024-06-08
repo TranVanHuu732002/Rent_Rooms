@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Address, Button, Loading, Overview } from "../../components";
+import { Address, Button, Loading, Map, Overview } from "../../components";
 import { BsCameraFill } from "react-icons/bs";
 import {
   apiCreatePost,
@@ -12,6 +12,7 @@ import { getCodesArea, getCodesPrice } from "../../utils/Common/getCodes";
 import Swal from "sweetalert2";
 import validate from "../../utils/Common/validateFields";
 import { resetDataEdit } from "../../store/actions";
+import { attentions } from "../../utils/constant";
 
 const CreatePost = ({ isEdit }) => {
   const dispatch = useDispatch();
@@ -177,7 +178,7 @@ const CreatePost = ({ isEdit }) => {
   };
 
   return (
-    <div className="px-6">
+    <div className="px-3">
       <h1 className="text-3xl font-medium py-4 border-b border-gray-200">
         {isEdit ? "Chỉnh sửa bài đăng" : "Đăng tin mới"}
       </h1>
@@ -256,9 +257,18 @@ const CreatePost = ({ isEdit }) => {
           />
           <div className="h-[500px]"></div>
         </div>
-        <div className="w-[30%] flex-none">
-          maps
-          <Loading />
+        <div className="py-4 w-[30%] flex-none">
+          <Map address={payload?.address ? payload.address : ""} zoom={12} />
+          <div className=" bg-orange-300 mt-4 rounded-md p-4 ">
+            <h3 className="text-xl font-medium mb-2">Lưu ý khi đăng tin</h3>
+            <ul className="text-sm list-disc pl-4 text-justify">
+              {attentions?.map((item, index) => (
+                <li key={index}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

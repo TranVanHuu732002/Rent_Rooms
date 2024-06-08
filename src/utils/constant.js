@@ -7,15 +7,14 @@ export const path = {
   CHO_THUE_PHONG_TRO: "cho-thue-phong-tro",
   NHA_CHO_THUE: "nha-cho-thue",
   SEARCH: "tim-kiem",
-  DETAIL_POST__TITLE__IDPOST : 'chi-tiet/:title/:postId',
-  CONTACT:"lien-he",
-  DETAIL:'/chi-tiet/',
-// admin
-  SYSTEM: '/he-thong/*',
-  CREATE_POST: 'tao-moi-tin-dang',
-  MANAGE_POST: 'quan-li-bai-dang',
-  EDIT_ACCOUNT: 'sua-thong-tin-ca-nhan'
-
+  DETAIL_POST__TITLE__IDPOST: "chi-tiet/:title/:postId",
+  CONTACT: "lien-he",
+  DETAIL: "/chi-tiet/",
+  // admin
+  SYSTEM: "/he-thong/*",
+  CREATE_POST: "tao-moi-tin-dang",
+  MANAGE_POST: "quan-li-bai-dang",
+  EDIT_ACCOUNT: "sua-thong-tin-ca-nhan",
 };
 
 export const text = {
@@ -40,4 +39,11 @@ export const localtion = [
     name: "Phòng trọ Đà nẵng",
     image: "https://phongtro123.com/images/location_dn.jpg",
   },
+];
+
+export const attentions = [
+  "Nội dung phải viết bằng tiếng Việt có dấu",
+  "Tiêu đề tin không dài quá 100 kí tự",
+  "Các bạn nên điền đầy đủ thông tin vào các mục để tin đăng có hiệu quả hơn.",
+  "Tin đăng có hình ảnh rõ ràng sẽ được xem và gọi gấp nhiều lần so với tin rao không có ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng!",
 ];

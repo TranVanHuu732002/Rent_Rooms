@@ -31,21 +31,35 @@ const Map = ({ address, zoom }) => {
   const [center, setCenter] = useState([]);
   useEffect(() => {
     const fetchCenter = async () => {
-      const response = await apiGetLongtitudeAndLatitudeFromAddress(address);
-      if (response.status === 200 && response.data.results.length > 0) {
-        setCenter([
-          response.data?.results[0]?.geometry?.lat,
-          response.data?.results[0]?.geometry?.lng,
-        ]);
-      }
-       else if(response.status === 400) {
-        window.navigator.geolocation.getCurrentPosition((position) => {
-          setCenter([position.coords.latitude, position.coords.longitude]);
-        });
+      if (address) {
+        try {
+          const response = await apiGetLongtitudeAndLatitudeFromAddress(address);
+          if (response.status === 200 && response.data.results.length > 0) {
+            setCenter([
+              response.data.results[0].geometry.lat,
+              response.data.results[0].geometry.lng,
+            ]);
+          } else {
+            getCurrentLocation();
+          }
+        } catch (error) {
+          console.error("Error fetching address coordinates:", error);
+          getCurrentLocation();
+        }
+      } else {
+        getCurrentLocation();
       }
     };
-    address && fetchCenter();
-  }, [address]);
+
+    const getCurrentLocation = () => {
+      navigator.geolocation &&
+        navigator.geolocation.getCurrentPosition((position) => {
+          setCenter([position.coords.latitude, position.coords.longitude]);
+        });
+    };
+
+    fetchCenter();
+  }, [address, setCenter]);
 
   return (
     <>

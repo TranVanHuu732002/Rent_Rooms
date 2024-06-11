@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { getPostsLimit } from "../../store/actions/post";
 import { BoxInfo, Map, RelatedPost, Slider } from "../../components";
 import icons from "../../utils/icons";
+import { path } from "../../utils/constant";
 
 const {
   HiLocationMarker,
@@ -14,6 +15,7 @@ const {
 } = icons;
 
 const DetailPost = () => {
+  const navigate = useNavigate();
   const { postId } = useParams();
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.post);
@@ -28,6 +30,19 @@ const DetailPost = () => {
       return fullAddress?.slice(prefix.length).trim();
     }
     return fullAddress?.trim();
+  };
+
+  const handleFilterLabel = () => {
+    const titleSearch = `Tìm kiếm tin đăng theo chuyên mục ${posts[0]?.labels.value}`;
+    navigate(
+      {
+        pathname: `/${path.SEARCH}`,
+        search: createSearchParams({
+          labelCode: posts[0]?.labels.code,
+        }).toString(),
+      },
+      { state: titleSearch }
+    );
   };
   return (
     <div className="w-full flex gap-4 mt-4">
@@ -44,8 +59,11 @@ const DetailPost = () => {
             </h2>
             <div className="flex items-center gap-2">
               <span>Chuyên mục:</span>
-              <span className="text-blue-600 underline font-medium hover:text-orange-600 cursor-pointer">
-                {posts[0]?.overviews?.area}
+              <span
+                onClick={handleFilterLabel}
+                className="text-blue-600 underline font-medium hover:text-orange-600 cursor-pointer"
+              >
+                {posts[0]?.labels?.value}
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -139,7 +157,7 @@ const DetailPost = () => {
           <div className="mt-8">
             <h3 className="font-semibold text-xl my-4">Bản đồ</h3>
             <span>{posts[0]?.address}</span>
-            {/* <Map address={extractAddress(posts[0]?.address)||''} zoom={12} /> */}
+            <Map address={extractAddress(posts[0]?.address) || ""} zoom={12} />
           </div>
         </div>
       </div>

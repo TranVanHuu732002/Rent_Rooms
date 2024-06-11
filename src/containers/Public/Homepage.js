@@ -34,7 +34,7 @@ const Homepage = () => {
             title={"Xem theo diện tích"}
             content={areas}
           />
-          <RelatedPost />
+          <RelatedPost newPost/>
         </div>
       </div>
     </div>

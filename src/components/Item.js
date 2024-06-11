@@ -3,8 +3,11 @@ import icons from "../utils/icons";
 import { Link } from "react-router-dom";
 import { formatVietnameseToString } from "../utils/Common/formatVietnameseToString";
 import { path } from "../utils/constant";
+import { blobToBase64 } from "../utils/Common/toBase64";
 
 const { GrStar, RiHeartLine, RiHeartFill, BsBookmarkStarFill } = icons;
+const anonAvatar =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdJemWHuVHGhH8ndYaNmX1nz4zh5bcn2eA6QRLJiGReA&s";
 
 const Item = ({
   images,
@@ -94,7 +97,7 @@ const Item = ({
         <div className="flex items-center my-5 justify-between">
           <div className="flex items-center ">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdJemWHuVHGhH8ndYaNmX1nz4zh5bcn2eA6QRLJiGReA&s"
+              src={blobToBase64(user?.avatar) || anonAvatar}
               alt="Avatar"
               className="w-[30px] h-[30px] object-cover rounded-full"
             />
@@ -110,7 +113,7 @@ const Item = ({
             <a
               href={`https://zalo.me/${user?.zalo}`}
               className="text-blue-700 rounded-md p-1 border border-blue-700"
-              target="_parent"
+              target="_blank"
             >
               Zalo
             </a>

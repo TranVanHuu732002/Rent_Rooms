@@ -7,7 +7,12 @@ const Province = () => {
     <div className="flex justify-center items-center gap-5 py-5">
       {localtion.map((item) => {
         return (
-          <ProvinceBtn key={item.id} name={item.name} image={item.image} />
+          <ProvinceBtn
+            key={item.id}
+            name={item.name}
+            image={item.image}
+            provinceCode={item.provinceCode}
+          />
         );
       })}
     </div>

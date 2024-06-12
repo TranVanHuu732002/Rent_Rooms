@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import logo from "../../assets/logowithoutbg.png";
-import { Button,User } from "../../components";
+import { Button, User } from "../../components";
 import icons from "../../utils/icons";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { path } from "../../utils/constant";
@@ -27,6 +27,10 @@ function Header() {
     headeRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [searchParams.get("page")]);
 
+  const handleClick = () => {
+    navigate(menuManage[0].path);
+  };
+
   return (
     <div ref={headeRef} className="w-3/4">
       <div className="w-full flex items-center justify-between ">
@@ -38,7 +42,7 @@ function Header() {
         <div className="flex items-center gap-2">
           {!isLoggedIn && (
             <div className="flex items-center gap-2">
-              <span className="font-normal">Xin chào ai đó!!!</span>
+              <span className="font-normal">Vui lòng đăng nhập</span>
               <Button
                 text={"Đăng nhập"}
                 textColor="text-white"
@@ -59,9 +63,10 @@ function Header() {
           )}
           {isLoggedIn && (
             <div className="flex items-center gap-2 relative">
-              <span><User/></span>
+              <span>
+                <User />
+              </span>
               <Button
-              
                 text={"Quản lí tài khoản"}
                 IcAfter={IoIosArrowDown}
                 textColor="text-white"
@@ -98,6 +103,7 @@ function Header() {
           )}
 
           <Button
+            onClick={handleClick}
             text={"Đăng tin mới"}
             textColor="text-white"
             bgColor="bg-red-500"

@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 const SearchDetail = () => {
   const {  prices, areas } = useSelector((state) => state.app);
   const location =useLocation()
-console.log(location)
+
   return (
     <div className=" w-full flex flex-col gap-3">
       <div>

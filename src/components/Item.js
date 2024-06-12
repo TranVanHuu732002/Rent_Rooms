@@ -3,10 +3,11 @@ import icons from "../utils/icons";
 import { Link } from "react-router-dom";
 import { formatVietnameseToString } from "../utils/Common/formatVietnameseToString";
 import { path } from "../utils/constant";
-
-const indexs = [0, 1, 2, 3];
+import { blobToBase64 } from "../utils/Common/toBase64";
 
 const { GrStar, RiHeartLine, RiHeartFill, BsBookmarkStarFill } = icons;
+const anonAvatar =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdJemWHuVHGhH8ndYaNmX1nz4zh5bcn2eA6QRLJiGReA&s";
 
 const Item = ({
   images,
@@ -36,7 +37,7 @@ const Item = ({
       >
         {images.length > 0 &&
           images
-            .filter((i, index) => indexs.some((i) => i === index))
+            .filter((i, index) => [...Array(4).keys()].some((i) => i === index))
             ?.map((i, index) => {
               return (
                 <img
@@ -96,25 +97,26 @@ const Item = ({
         <div className="flex items-center my-5 justify-between">
           <div className="flex items-center ">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdJemWHuVHGhH8ndYaNmX1nz4zh5bcn2eA6QRLJiGReA&s"
+              src={blobToBase64(user?.avatar) || anonAvatar}
               alt="Avatar"
               className="w-[30px] h-[30px] object-cover rounded-full"
             />
             <p className="mx-1 ">{user?.name}</p>
           </div>
           <div className="flex items-center gap-1">
-            <button
-              type="button"
-              className="bg-blue-700 text-white p-1 rounded-md"
+            <a
+              href="tel:+84383609548"
+              className="bg-blue-600 text-white p-1 rounded-md"
             >
               {`Gọi ${user?.phone}`}
-            </button>
-            <button
-              type="button"
-              className="text-blue-700 rounded-md px-1 border border-blue-700"
+            </a>
+            <a
+              href={`https://zalo.me/${user?.zalo}`}
+              className="text-blue-700 rounded-md p-1 border border-blue-700"
+              target="_blank"
             >
-              Nhan Zalo
-            </button>
+              Zalo
+            </a>
           </div>
         </div>
       </div>

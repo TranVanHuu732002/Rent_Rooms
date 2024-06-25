@@ -51,7 +51,7 @@ const EditAccount = () => {
           value={currentData?.id?.match(/\d/g).join("").slice(0, 6) || ""}
         />
         <InputReadOnly
-          editPhone
+          // editPhone
           direction="flex-row"
           label="Số điện thoại"
           value={currentData?.phone || ""}
@@ -77,14 +77,14 @@ const EditAccount = () => {
           label="Facebook"
           value={payload.fbUrl}
         />
-        <div className="flex ">
+        {/* <div className="flex ">
           <label className="w-48 flex-none font-semibold" htmlFor="password">
             Mật khẩu
           </label>
           <small className="text-blue-500 py-4 cursor-pointer">
             Đổi mật khẩu
           </small>
-        </div>
+        </div> */}
         <div className="flex mb-8">
           <label className="w-48 flex-none font-semibold" htmlFor="avatar">
             Ảnh đại diện

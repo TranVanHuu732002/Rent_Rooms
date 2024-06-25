@@ -18,24 +18,39 @@ const CreatePost = ({ isEdit }) => {
   const dispatch = useDispatch();
   const { dataEdit } = useSelector((state) => state.post);
   const [payload, setPayload] = useState(() => {
-    const initData = {
-      categoryCode: dataEdit?.categoryCode || "",
-      title: dataEdit?.title || "",
-      areaNumber: dataEdit?.areaNumber || 0,
-      priceNumber: dataEdit?.priceNumber * 1000000 || 0,
-      images: dataEdit?.images?.image
-        ? JSON.parse(dataEdit?.images?.image)
-        : "",
-      address: dataEdit?.address || "",
-      priceCode: dataEdit?.priceCode || "",
-      areaCode: dataEdit?.areaCode || "",
-      description: dataEdit?.description
-        ? JSON.parse(dataEdit?.description)
-        : "",
-      target: dataEdit?.overviews?.target || "",
-      province: dataEdit?.province || "",
-    };
-    return initData;
+    if (isEdit && dataEdit) {
+      return {
+        categoryCode: dataEdit?.categoryCode || "",
+        title: dataEdit?.title || "",
+        areaNumber: dataEdit?.areaNumber || 0,
+        priceNumber: dataEdit?.priceNumber * 1000000 || 0,
+        images: dataEdit?.images?.image
+          ? JSON.parse(dataEdit?.images?.image)
+          : "",
+        address: dataEdit?.address ? dataEdit.address.replace(/\bTP\.\b/g, ""): "",
+        priceCode: dataEdit?.priceCode || "",
+        areaCode: dataEdit?.areaCode || "",
+        description: dataEdit?.description
+          ? JSON.parse(dataEdit?.description)
+          : "",
+        target: dataEdit?.overviews?.target || "",
+        province: dataEdit?.province || "",
+      };
+    } else {
+      return {
+        categoryCode: "",
+        title: "",
+        priceNumber: 0,
+        areaNumber: 0,
+        images: "",
+        address: "",
+        priceCode: "",
+        areaCode: "",
+        description: "",
+        target: "",
+        province: "",
+      };
+    }
   });
 
   const [imagesPreview, setImagesPreview] = useState([]);
@@ -46,11 +61,11 @@ const CreatePost = ({ isEdit }) => {
   const { currentData } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (dataEdit?.images) {
+    if (isEdit && dataEdit?.images) {
       let images = JSON.parse(dataEdit?.images?.image);
       images && setImagesPreview(images);
     }
-  }, [dataEdit]);
+  }, [isEdit, dataEdit]);
 
   const handleFiles = async (e) => {
     e.stopPropagation();
@@ -175,6 +190,7 @@ const CreatePost = ({ isEdit }) => {
       target: "",
       province: "",
     });
+    setImagesPreview([]);
   };
 
   return (
@@ -255,7 +271,7 @@ const CreatePost = ({ isEdit }) => {
             bgColor="bg-green-600"
             textColor="text-white"
           />
-          <div className="h-[500px]"></div>
+          <div className="h-[48px]"></div>
         </div>
         <div className="py-4 w-[30%] flex-none">
           <Map address={payload?.address ? payload.address : ""} zoom={12} />
@@ -263,9 +279,7 @@ const CreatePost = ({ isEdit }) => {
             <h3 className="text-xl font-medium mb-2">Lưu ý khi đăng tin</h3>
             <ul className="text-sm list-disc pl-4 text-justify">
               {attentions?.map((item, index) => (
-                <li key={index}>
-                  {item}
-                </li>
+                <li key={index}>{item}</li>
               ))}
             </ul>
           </div>

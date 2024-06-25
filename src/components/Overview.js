@@ -20,7 +20,34 @@ const Overview = ({ payload, setPayload, invalidFields, setInvalidFields }) => {
   const { categories } = useSelector((state) => state.app);
   const { currentData } = useSelector((state) => state.user);
   const { dataEdit } = useSelector((state) => state.post);
-   
+
+  const handleChangeDescription = (e) => {
+    const value = e.target.value;
+
+    try {
+      const parsedValue = JSON.parse(value); // Cố gắng parse value thành một mảng
+      if (Array.isArray(parsedValue)) {
+        // Nếu parse thành công và là mảng, setPayload với giá trị này
+        setPayload((prev) => ({
+          ...prev,
+          description: parsedValue,
+        }));
+      } else {
+        // Nếu parse thành công nhưng không phải mảng, setPayload với một mảng chứa giá trị đó
+        setPayload((prev) => ({
+          ...prev,
+          description: [value],
+        }));
+      }
+    } catch (error) {
+      // Nếu parse không thành công, tức là value không phải là JSON, setPayload với một mảng chứa giá trị đó
+      setPayload((prev) => ({
+        ...prev,
+        description: [value],
+      }));
+    }
+  };
+
   return (
     <div>
       <h2 className="font-bold mb-2">Thông tin mô tả</h2>
@@ -51,12 +78,7 @@ const Overview = ({ payload, setPayload, invalidFields, setInvalidFields }) => {
             cols="30"
             rows="10"
             value={payload.description}
-            onChange={(e) =>
-              setPayload((prev) => ({
-                ...prev,
-                description: e.target.value,
-              }))
-            }
+            onChange={handleChangeDescription}
             className="w-full rounded-md outline-none border border-gray-300 p-2"
             onFocus={() => setInvalidFields([])}
           ></textarea>

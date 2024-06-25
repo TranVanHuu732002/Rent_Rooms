@@ -72,9 +72,10 @@ const ManagePost = () => {
       setPosts(postOfCurrent)
     }
   };
+  console.log(posts)
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 mb-12 ">
       <div className="py-4 border-b border-gray-200 flex items-center justify-between">
         <h1 className="text-3xl font-medium">Quản lí tin đăng</h1>
         <select
@@ -120,7 +121,7 @@ const ManagePost = () => {
         <tbody>
           {!posts ? (
             <tr>
-              <td>amskaskas</td>
+              <td>Bạn chưa có bài đăng nào</td>
             </tr>
           ) : (
             posts?.map((item) => {

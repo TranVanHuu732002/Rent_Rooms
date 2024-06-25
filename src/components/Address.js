@@ -24,8 +24,7 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
       let foundProvince =
         provinces?.length > 0 &&
         provinces?.find(
-          (item) =>
-            item.name === addressArr[addressArr.length - 1]?.trim()
+          (item) => item.name === addressArr[addressArr.length - 1]?.trim()
         );
       setProvince(foundProvince ? foundProvince.cityId : "");
     }
@@ -37,8 +36,7 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
       let foundDistrict =
         districts?.length > 0 &&
         districts?.find(
-          (item) =>
-            item.name === addressArr[addressArr.length - 2]?.trim()
+          (item) => item.name === addressArr[addressArr.length - 2]?.trim()
         );
       setDistrict(foundDistrict ? foundDistrict.districtId : "");
     }
@@ -157,6 +155,7 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
           label="Địa chỉ chính xác"
           value={`${[valueWard, valueDistrict, valueProvince]
             .filter(Boolean)
+            .map((item) => item.replace(/\bTP\.\s?/g, ""))
             .join(", ")}`}
         />
       </div>

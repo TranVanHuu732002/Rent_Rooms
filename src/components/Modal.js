@@ -122,7 +122,7 @@ const Modal = ({
           e.stopPropagation();
           setIsShowModal(true);
         }}
-        className="w-2/5 h-[500px] bg-white rounded-md relative"
+        className="w-2/5 min-h-[250px] bg-white rounded-md relative"
       >
         <div className="h-[45px] px-4 flex items-center border-b border-gray-200">
           <span
@@ -136,7 +136,7 @@ const Modal = ({
           </span>
         </div>
         {(name === "category" || name === "province") && (
-          <div className="p-4 flex flex-col">
+          <div className="p-4 flex flex-col ">
             <span className="py-2 flex gap-2 items-center border-b border-gray-200">
               <input
                 type="radio"

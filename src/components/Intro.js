@@ -3,14 +3,19 @@ import { text } from "../utils/dataIntro";
 import icons from "../utils/icons";
 import Button from "../components/Button";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { formatVietnameseToString } from "../utils/Common/formatVietnameseToString";
+import menuManage from "../utils/menuManage";
 
 const { GrStar } = icons;
 const star = [1, 2, 3, 4, 5];
 
 const Intro = () => {
+  const navigate = useNavigate()
   const { categories } = useSelector((state) => state.app);
+  const handleClick = () => {
+    navigate(menuManage[0].path);
+  };
 
   return (
     <div className="w-3/4 flex flex-col justify-center items-center bg-white shadow-md rounded-md p-4 my-10 ">
@@ -31,7 +36,7 @@ const Intro = () => {
         </span>
         {text.description2}
       </p>
-      <div className="flex justify-around flex-row w-4/5 my-2">
+      {/* <div className="flex justify-around flex-row w-4/5 my-2">
         {text.statistic.map((item, index) => {
           return (
             <div
@@ -43,7 +48,7 @@ const Intro = () => {
             </div>
           );
         })}
-      </div>
+      </div> */}
       <h3 className="font-bold text-lg my-2 ">{text.price}</h3>
       <div className="flex items-center justify-center gap-1">
         {star.map((item) => {
@@ -63,6 +68,7 @@ const Intro = () => {
         text="Đăng tin ngay"
         textColor="text-white"
         px="px-6"
+        onClick={handleClick}
       />
       <div className="h-12"></div>
     </div>

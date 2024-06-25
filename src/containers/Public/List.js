@@ -33,7 +33,7 @@ const List = ({ categoryCode }) => {
     <div className="w-full bg-white shadow-md rounded-md px-4 ">
       <div className="flex items-center justify-between mt-5 px-1">
         <h4 className="text-xl font-semibold">Danh sách tin đăng</h4>
-        <span>Cập nhật : 12/04/2024</span>
+        {/* <span>Cập nhật : 12/04/2024</span> */}
       </div>
       <div className="flex items-center gap-2 my-2 px-1">
         <span>Sắp xếp:</span>

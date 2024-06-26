@@ -20,7 +20,7 @@ const Homepage = () => {
           <List />
           <Pagination />
         </div>
-        <div className="w-[30%]  flex flex-col gap-4 justify-start items-center">
+        <div className="w-[30%] mt-5 flex flex-col gap-4 justify-start items-center">
           <ItemSidebar title={"Danh sách cho thuê"} content={categories} />
           <ItemSidebar
             isDouble={true}

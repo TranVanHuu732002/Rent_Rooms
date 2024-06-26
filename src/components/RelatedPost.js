@@ -31,6 +31,7 @@ const RelatedPost = ({ newPost }) => {
               createdAt={item?.createdAt}
               image={JSON.parse(item.images.image)}
               star={item?.star}
+              id={item?.id}
             />
           );
         })}

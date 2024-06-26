@@ -74,7 +74,7 @@ function Header() {
                 onClick={() => setIsShowMenu((prev) => !prev)}
               />
               {isShowMenu && (
-                <div className="absolute top-full right-0 bg-white min-w-200 shadow-md rounded-md flex flex-col p-4 ">
+                <div className="absolute top-full right-0 bg-white min-w-200 shadow-md rounded-md flex flex-col p-4 z-50">
                   {menuManage.map((item) => {
                     return (
                       <Link

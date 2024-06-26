@@ -72,7 +72,6 @@ const ManagePost = () => {
       setPosts(postOfCurrent)
     }
   };
-  console.log(posts)
 
   return (
     <div className="flex flex-col gap-6 mb-12 ">
